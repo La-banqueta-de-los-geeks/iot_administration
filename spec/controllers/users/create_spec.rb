@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
   describe 'Create user with her organization' do
-    let!(:user) { { user: { email: Faker::Internet.email, password: Faker::Alphanumeric.alphanumeric(number: 10) } } }
+    let!(:user) { { user: { email: Faker::Internet.email, password: Faker::Alphanumeric.alphanumeric(number: 10), organization_attributes: { name: Faker::Games::Pokemon.name } } } }
     context 'create user success' do
       before do
         post(:create, format: :json, params: user)
@@ -26,6 +26,11 @@ RSpec.describe V1::UsersController, type: :controller do
         it { is_expected.to include(:name) }
         it { is_expected.to include(:created_at) }
         it { is_expected.to include(:updated_at) }
+      end
+      context 'Correct token payload' do
+        subject { payload_crud[:token] }
+        it { is_expected.to include(:token) }
+        it { is_expected.to include(:expires_at) }
       end
       context 'response' do
         subject { response }
