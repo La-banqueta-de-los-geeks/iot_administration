@@ -14,7 +14,7 @@ class V1::UsersController < ApplicationController
     if @user.valid_password?(login_params[:password])
       @token = Token.new(user_id: @user.id)
       if @token.save
-        render :show
+        render :show, status: :ok
       else
         render json: { message: I18n.t("credentials.invalid") }, status: :bad_request
       end
@@ -28,7 +28,7 @@ class V1::UsersController < ApplicationController
     if @user.save
       @token = Token.new user_id: @user.id  # new -> #create -> #save
       if @token.save
-        render :show
+        render :show, status: :created
       else
         render json: { response: t("credentials.error"), status: :bad_request }, status: :bad_request
       end
