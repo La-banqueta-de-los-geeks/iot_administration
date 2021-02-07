@@ -1,5 +1,4 @@
 class V1::UsersController < ApplicationController
-  before_action :validate_user, except: [:index, :login]
   before_action :set_user, only: [:update]
   #before_action :authenticate, except: [:create, :login]
 
@@ -30,7 +29,7 @@ class V1::UsersController < ApplicationController
       if @token.save
         render :show, status: :created
       else
-        render json: { response: t("credentials.error"), status: :bad_request }, status: :bad_request
+        render json: { response: I18n.t("credentials.error"), status: :bad_request }, status: :bad_request
       end
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -61,12 +60,6 @@ class V1::UsersController < ApplicationController
                                  organization_attributes: [
                                    :name,
                                  ])
-  end
-
-  def validate_user
-    if !params[:user].present?
-      render json: { :message => t("messages.add_name") }, status: :bad_request
-    end
   end
 
   def set_user
