@@ -37,7 +37,11 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
   # TDD
-  
+  gem 'database_cleaner', '~> 1.99'
+  gem 'database_cleaner-active_record', '~> 1.99'
+  gem 'rails-controller-testing', '~> 1.0'
+  gem 'shoulda', '~> 2.11'
+  gem 'shoulda-matchers', '~> 4.5'
 end
 
 group :development do
@@ -45,13 +49,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rspec-rails', '~> 4.0'
+  gem 'faker', '~> 2.15'
+  gem 'factory_bot_rails', '~> 6.1'
   gem 'rubocop', require: false
-  #TDD
-  gem 'database_cleaner', '~> 1.99'
-  gem 'database_cleaner-active_record', '~> 1.99'
-  gem 'rails-controller-testing', '~> 1.0'
-  gem 'shoulda', '~> 2.11'
-  gem 'shoulda-matchers', '~> 4.5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -64,4 +65,3 @@ gem 'annotate', '~> 3.1'
 gem 'will_paginate', '~> 3.3'
 gem 'pry-rails', '~> 0.3.9'
 gem 'aasm', '~> 5.1'
-
