@@ -1,0 +1,12 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Includes:
+    - '**/*.rb'
+    - Rakefile
+    - config.ru
+  Excludes:
+    - db/**
+    - config/**
+    - script/**
+    - vendor/**/* # Circle adds the rubies here
