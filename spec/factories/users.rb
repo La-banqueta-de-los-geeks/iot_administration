@@ -17,18 +17,9 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  has_one :organization
-  has_many :tokens
-  
-  #validations
-  validates :email, uniqueness: true, presence: true, on: :create
-  validates :password, presence: true, on: :create
-  accepts_nested_attributes_for(
-    :organization
-  )
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.email }
+    password { Faker::Alphanumeric.alphanumeric(number: 10) }
+  end
 end

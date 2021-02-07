@@ -13,5 +13,8 @@
 #  index_organizations_on_user_id  (user_id)
 #
 class Organization < ApplicationRecord
+  
   belongs_to :user
+  #validations
+  validates :name, presence: true
 end
