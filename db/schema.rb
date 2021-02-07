@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_07_010324) do
+ActiveRecord::Schema.define(version: 2021_02_07_050133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2021_02_07_010324) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["device_id"], name: "index_device_ports_on_device_id"
+  end
+
+  create_table "device_sequences", force: :cascade do |t|
+    t.bigint "device_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_id"], name: "index_device_sequences_on_device_id"
   end
 
   create_table "devices", force: :cascade do |t|
@@ -58,6 +66,15 @@ ActiveRecord::Schema.define(version: 2021_02_07_010324) do
     t.index ["organization_id"], name: "index_port_values_on_organization_id"
   end
 
+  create_table "tokens", force: :cascade do |t|
+    t.string "token"
+    t.bigint "user_id", null: false
+    t.datetime "expires_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tokens_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -85,8 +102,10 @@ ActiveRecord::Schema.define(version: 2021_02_07_010324) do
   end
 
   add_foreign_key "device_ports", "devices"
+  add_foreign_key "device_sequences", "devices"
   add_foreign_key "devices", "organizations"
   add_foreign_key "devices_port_values", "devices"
   add_foreign_key "devices_port_values", "port_values"
   add_foreign_key "port_values", "organizations"
+  add_foreign_key "tokens", "users"
 end

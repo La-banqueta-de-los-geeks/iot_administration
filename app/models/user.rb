@@ -35,4 +35,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_one :organization
+
+  #validations
+  validates :email, uniqueness: true,presence: true, on: :create
+  validates :password, presence: true, on: :create
+  accepts_nested_attributes_for(
+    :organization
+  )
 end
