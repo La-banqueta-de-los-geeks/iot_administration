@@ -5,10 +5,11 @@ class Ability
 
   def initialize(user)
     if user.present?
-      can [:update], [User], {id: user.id}
+      can [:update], [User], { id: ufser.id }
     else
       can [:create, :login], [User]
     end
+    cannot [:update,:destroy], [Token]
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

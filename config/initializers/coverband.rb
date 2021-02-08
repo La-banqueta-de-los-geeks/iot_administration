@@ -15,4 +15,4 @@ Coverband.configure do |config|
   # Does not track line-level usage, only indicates if an entire file
   # is used or not.
   config.track_views = true
-end
+end if ENV['RAILS_ENV'] != 'test'
