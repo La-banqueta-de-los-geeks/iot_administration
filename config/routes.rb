@@ -19,6 +19,6 @@ Rails.application.routes.draw do
       resources :challenges
     end
   end
-  mount Coverband::Reporters::Web.new, at: '/coverage' if ENV['RAILS_ENV']  != 'test'
+  #mount Coverband::Reporters::Web.new, at: '/coverage' if ENV['RAILS_ENV']  != 'test'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
