@@ -80,6 +80,8 @@ GEM
     childprocess (3.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.8)
+    coverband (5.1.0)
+      redis
     crass (1.0.6)
     database_cleaner (1.99.0)
     database_cleaner-active_record (1.99.0)
@@ -92,6 +94,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    docile (1.3.5)
     erubi (1.10.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -223,6 +226,12 @@ GEM
     shoulda (2.11.3)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
+    simplecov (0.21.2)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.2)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -262,6 +271,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  coverband (~> 5.1)
   database_cleaner (~> 1.99)
   database_cleaner-active_record (~> 1.99)
   devise (~> 4.7)
@@ -281,6 +291,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda (~> 2.11)
   shoulda-matchers (~> 4.5)
+  simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

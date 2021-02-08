@@ -1,21 +1,16 @@
 # == Schema Information
 #
-# Table name: tokens
+# Table name: organizations
 #
 #  id         :bigint           not null, primary key
-#  expires_at :datetime
-#  token      :string
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  user_id    :bigint
 #
 # Indexes
 #
-#  index_tokens_on_user_id  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
+#  index_organizations_on_user_id  (user_id)
 #
 FactoryBot.define do
   factory :organization do

@@ -2,32 +2,17 @@
 
 # == Schema Information
 #
-# Table name: users
+# Table name: organizations
 #
-#  id                     :bigint           not null, primary key
-#  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string(255)
-#  email                  :string(255)      default(""), not null
-#  encrypted_password     :string(255)      default(""), not null
-#  failed_attempts        :integer          default(0), not null
-#  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string(255)
-#  locale                 :string(255)      default("es"), not null
-#  locked_at              :datetime
-#  permission_level       :integer          default(0), not null
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string(255)
-#  sign_in_count          :integer          default(0), not null
-#  unlock_token           :string(255)
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id         :bigint           not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_unlock_token          (unlock_token) UNIQUE
+#  index_organizations_on_user_id  (user_id)
 #
 require 'rails_helper'
 
@@ -35,6 +20,7 @@ RSpec.describe Organization, type: :model do
   describe 'validations in User' do
     it 'validate presence of required fields' do
       should validate_presence_of(:name)
+      should validate_uniqueness_of(:name)
     end
     context 'associations' do
       it { should belong_to(:user) }
