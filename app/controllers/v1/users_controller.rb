@@ -1,6 +1,7 @@
 class V1::UsersController < ApplicationController
+  before_action :authenticate!, only: %i(update)
   before_action :set_user, only: [:update]
-  #before_action :authenticate, except: [:create, :login]
+  load_and_authorize_resource
 
   def index
     @users = User.all
@@ -37,15 +38,11 @@ class V1::UsersController < ApplicationController
   end
 
   def update
-    if @user.id == @current_user.id
-      if @user.valid?
-        @user.update(user_params)
-        render :update
-      else
-        render json: @user.errors.message, status: :bad_request
-      end
+    if @user.valid?
+      @user.update(user_params)
+      render :update
     else
-      head :unauthorized
+      render json: @user.errors.message, status: :bad_request
     end
   end
 
