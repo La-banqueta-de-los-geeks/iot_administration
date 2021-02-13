@@ -68,3 +68,5 @@ gem 'pry-rails', '~> 0.3.9'
 gem 'aasm', '~> 5.1'
 
 gem "cancancan", "~> 3.2"
+
+gem "sidekiq", "~> 6.1"

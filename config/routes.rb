@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   scope "(:locale)", locale: /es|en/ do
     root "home#index"
     namespace :v1, :defaults => { :format => "json" } do
