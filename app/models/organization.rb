@@ -6,14 +6,11 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint
-#
-# Indexes
-#
-#  index_organizations_on_user_id  (user_id)
 #
 class Organization < ApplicationRecord
-  belongs_to :user
+  #belongs_to :user
+  has_one :owner
+  has_many :admins
   #validations
   validates :name, presence: true, uniqueness: true
 end

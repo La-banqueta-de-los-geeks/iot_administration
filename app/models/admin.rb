@@ -20,17 +20,5 @@
 #  index_users_on_organization_id       (organization_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  belongs_to :organization
-  has_many :tokens
-  # Nested attributes
-  accepts_nested_attributes_for :organization
-  #validations
-  validates :email, uniqueness: true, presence: true, on: :create
-  validates :password, presence: true, on: :create
-  validates_inclusion_of :type, in: %w[Owner Admin]
+class Admin < User
 end
