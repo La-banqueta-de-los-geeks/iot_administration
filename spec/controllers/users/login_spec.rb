@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe V1::UsersController, type: :controller do
-  describe "Create user with her organization" do
+  describe "Login user" do
+    let!(:organization) { create(:organization) }
     let!(:password) { Faker::Alphanumeric.alphanumeric(number: 10) }
-    let!(:user) { create(:user, password: password) }
-    let!(:organization) { create(:organization, user_id: user.id) }
-    let!(:payload) { { user: { email: user.email, password: password } } }
+    let!(:owner) { create(:owner, password: password, organization: organization) }
+    let!(:payload) { { user: { email: owner.email, password: password } } }
     context "create user success" do
       before do
         post(:login, format: :json, params: payload)

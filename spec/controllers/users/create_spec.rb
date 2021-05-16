@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
-  describe 'Create user with her organization' do
+  describe 'Create user with organization' do
     let!(:user) { { user: { email: Faker::Internet.email, password: Faker::Alphanumeric.alphanumeric(number: 10), organization_attributes: { name: Faker::Games::Pokemon.name } } } }
     context 'create user success' do
       before do

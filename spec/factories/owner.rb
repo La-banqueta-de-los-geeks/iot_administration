@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -22,26 +20,11 @@
 #  index_users_on_organization_id       (organization_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-require 'rails_helper'
-
-RSpec.describe User, type: :model do
-  describe 'User validations' do
-    it 'validate email presence' do
-      should validate_presence_of(:email)
-    end
-    it 'validate password presence' do
-      should validate_presence_of(:password)
-    end
-    it 'Validate only can assing type in Admin or Owner' do
-      should validate_inclusion_of(:type).in_array(%w[Admin Owner])
-    end
-  end
-  describe 'Relationships validations' do
-    context 'belongs to' do
-      it { should belong_to(:organization) }
-    end
-    context 'associations' do
-      it { should have_many(:tokens)  }
-    end
+FactoryBot.define do
+  factory :owner do
+    email { Faker::Internet.email }
+    password { Faker::Alphanumeric.alphanumeric(number: 10) }
+    organization
+    type { :Owner }
   end
 end
