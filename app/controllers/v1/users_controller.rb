@@ -24,7 +24,7 @@ class V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = Owner.new(user_params)
     if @user.save
       @token = Token.new user_id: @user.id  # new -> #create -> #save
       if @token.save
