@@ -16,7 +16,6 @@ RUN mkdir -p /home/developer/app
 WORKDIR /home/developer/app
 # Copy files
 COPY ./Gemfile .
-COPY ./Gemfile.lock .
 # Install gems
 RUN bundle install
 # Copy the main app
