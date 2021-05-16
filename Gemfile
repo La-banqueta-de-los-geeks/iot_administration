@@ -74,3 +74,4 @@ gem "sidekiq", "~> 6.1"
 
 gem "rswag-api", "~> 2.4"
 gem "rswag-ui", "~> 2.4"
+gem "rails-i18n", "~> 6.0"
