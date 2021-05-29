@@ -1,38 +1,28 @@
-require "swagger_helper"
+# spec/integration/users_spec.rb
+require 'rails_helper'
+require 'swagger_helper'
 
-RSpec.describe "v1/users", type: :request do
-  path "/v1/users" do
-    post "create user" do
-      tags "Users"
-      consumes "application/json"
-      response(201, "successful") do
-        let(:locale) { "es" }
-        parameter name: :params, in: :body, schema: { "$ref" => "#/components/schemas/user" }
-        after do |example|
-          example.metadata[:response][:content] = {
-            "application/json" => {
-              example: JSON.parse(response.body, symbolize_names: true),
-            },
-          }
-        end
+describe 'Users API' do
+  path '/es/v1/users/' do
+    post 'Creates a user' do
+      tags 'Users'
+      consumes 'application/json'
+      parameter name: :user, in: :body, schema: { '$ref' => '#/components/schemas/user' }
+
+      response '201', 'blog created' do
+        let(:user) { { user: { email: 'foo@test.com', password: '12345678', organization_attributes: { name: 'test' } } } }
         run_test!
       end
     end
   end
-  path "/v1/users/login" do
-    post "create user session" do
-      tags "Users"
-      consumes "application/json"
-      response(200, "successful") do
-        let(:locale) { "es" }
-        parameter name: :params, in: :body, schema: { "$ref" => "#/components/schemas/user_login" }
-        after do |example|
-          example.metadata[:response][:content] = {
-            "application/json" => {
-              example: JSON.parse(response.body, symbolize_names: true),
-            },
-          }
-        end
+  path '/es/v1/users/login' do
+    post 'create user session' do
+      tags 'Users'
+      consumes 'application/json'
+      parameter name: :user, in: :body, schema: { '$ref' => '#/components/schemas/user_login' }
+      let(:owner) { create(:owner, password: '12345678') }
+      response(200, 'successful') do
+        let(:user) { { user: { email: owner.email, password: '12345678' } } }
         run_test!
       end
     end
