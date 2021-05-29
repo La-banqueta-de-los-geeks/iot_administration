@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
       it { should belong_to(:organization) }
     end
     context 'associations' do
-      it { should have_many(:tokens)  }
+      it { should have_many(:tokens) }
     end
   end
 end
