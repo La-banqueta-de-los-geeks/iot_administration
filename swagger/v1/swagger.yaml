@@ -40,21 +40,21 @@ components:
           email: test@test.com
           password: '123456'
 paths:
-  "/v1/users":
+  "/es/v1/users/":
     post:
-      summary: create user
+      summary: Creates a user
       tags:
       - Users
       parameters: []
       responses:
         '201':
-          description: successful
+          description: blog created
       requestBody:
         content:
           application/json:
             schema:
               "$ref": "#/components/schemas/user"
-  "/v1/users/login":
+  "/es/v1/users/login":
     post:
       summary: create user session
       tags:
