@@ -1,5 +1,5 @@
 class V1::UsersController < ApplicationController
-  before_action :authenticate!, only: %i(update)
+  before_action :authenticate!, only: %i[update]
   before_action :set_user, only: [:update]
   load_and_authorize_resource
 
