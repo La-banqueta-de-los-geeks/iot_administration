@@ -3,44 +3,34 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  current_sign_in_at     :datetime
-#  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  failed_attempts        :integer          default(0), not null
-#  last_sign_in_at        :datetime
-#  last_sign_in_ip        :inet
-#  locked_at              :datetime
+#  locale                 :string           default("es")
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  sign_in_count          :integer          default(0), not null
-#  unconfirmed_email      :string
-#  unlock_token           :string
+#  type                   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  organization_id        :bigint
 #
 # Indexes
 #
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_organization_id       (organization_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_one :organization
-
+  belongs_to :organization
+  has_many :tokens
+  # Nested attributes
+  accepts_nested_attributes_for :organization
   #validations
-  validates :email, uniqueness: true,presence: true, on: :create
+  validates :email, uniqueness: true, presence: true, on: :create
   validates :password, presence: true, on: :create
-  accepts_nested_attributes_for(
-    :organization
-  )
+  validates_inclusion_of :type, in: %w[Owner Admin]
 end

@@ -1,4 +1,7 @@
 es:
+  errors:
+    messages:
+      blank: "Su correo no puede estar vacio"
   activerecord:
     errors:
       models:

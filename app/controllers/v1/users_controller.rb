@@ -1,7 +1,7 @@
 class V1::UsersController < ApplicationController
-  before_action :validate_user, except: [:index, :login]
+  before_action :authenticate!, only: %i(update)
   before_action :set_user, only: [:update]
-  #before_action :authenticate, except: [:create, :login]
+  load_and_authorize_resource
 
   def index
     @users = User.all
@@ -14,7 +14,7 @@ class V1::UsersController < ApplicationController
     if @user.valid_password?(login_params[:password])
       @token = Token.new(user_id: @user.id)
       if @token.save
-        render :show
+        render :show, status: :ok
       else
         render json: { message: I18n.t("credentials.invalid") }, status: :bad_request
       end
@@ -24,13 +24,13 @@ class V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = Owner.new(user_params)
     if @user.save
       @token = Token.new user_id: @user.id  # new -> #create -> #save
       if @token.save
-        render :show
+        render :show, status: :created
       else
-        render json: { response: t("credentials.error"), status: :bad_request }, status: :bad_request
+        render json: { response: I18n.t("credentials.error"), status: :bad_request }, status: :bad_request
       end
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -38,15 +38,11 @@ class V1::UsersController < ApplicationController
   end
 
   def update
-    if @user.id == @current_user.id
-      if @user.valid?
-        @user.update(user_params)
-        render :update
-      else
-        render json: @user.errors.message, status: :bad_request
-      end
+    if @user.valid?
+      @user.update(user_params)
+      render :update
     else
-      head :unauthorized
+      render json: @user.errors.message, status: :bad_request
     end
   end
 
@@ -61,12 +57,6 @@ class V1::UsersController < ApplicationController
                                  organization_attributes: [
                                    :name,
                                  ])
-  end
-
-  def validate_user
-    if !params[:user].present?
-      render json: { :message => t("messages.add_name") }, status: :bad_request
-    end
   end
 
   def set_user
