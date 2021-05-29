@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::API
   private
 
-  rescue_from CanCan::AccessDenied do |exception|
-    render json: { message: I18n.t("rules.dont_permission") }, status: :unauthorized
+  rescue_from CanCan::AccessDenied do |_exception|
+    render json: { message: I18n.t('rules.dont_permission') }, status: :unauthorized
   end
 
   def current_ability
@@ -14,9 +14,9 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate!
-    authorization = request.headers["Authorization"]
+    authorization = request.headers['Authorization']
     if authorization.present?
-      authorization = authorization.sub("Bearer ", "")
+      authorization = authorization.sub('Bearer ', '')
       token = Token.find_by(token: authorization)
       if token.nil? && !token.is_valid?
         head :unauthorized

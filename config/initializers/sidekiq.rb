@@ -1,7 +1,7 @@
-sidekiq_config = { 
-  db: 1, 
-  host: ENV['REDIS_HOST'], 
-  port: ENV['REDIS_PORT'], 
+sidekiq_config = {
+  db: 1,
+  host: ENV['REDIS_HOST'],
+  port: ENV['REDIS_PORT'],
   password: ENV['REDIS_PASSWORD']
 }
 Sidekiq.configure_server do |config|
