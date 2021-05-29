@@ -3,9 +3,73 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        organization_attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              required: true
+      example:
+        user:
+          email: test@test.com
+          password: '123456'
+          organization_attributes:
+            name: test
+    user_login:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+      example:
+        user:
+          email: test@test.com
+          password: '123456'
+paths:
+  "/v1/users":
+    post:
+      summary: create user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/user"
+  "/v1/users/login":
+    post:
+      summary: create user session
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/user_login"
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: localhost:4002
+      default: localhost:4000
