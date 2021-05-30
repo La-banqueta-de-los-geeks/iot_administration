@@ -1,4 +1,8 @@
 FROM ruby:3.0.0
+# Install libraries
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  graphviz
 # add user
 RUN useradd developer
 # Create folder developer

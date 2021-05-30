@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  name            :string
+#  value           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null
@@ -17,5 +18,6 @@
 #  fk_rails_...  (organization_id => organizations.id)
 #
 class PortValue < ApplicationRecord
-  belongs_to :organization
+  has_many :sequences
+  has_and_belongs_to_many :device_ports
 end

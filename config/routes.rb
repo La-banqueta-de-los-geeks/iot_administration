@@ -70,12 +70,12 @@
 #
 #
 # Routes for Rswag::Api::Engine:
-
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   require 'sidekiq/web'
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
+  mount Coverband::Reporters::Web.new, at: '/coverage'
   scope "(:locale)", locale: /es|en/ do
     root "home#index"
     namespace :v1, :defaults => { :format => "json" } do

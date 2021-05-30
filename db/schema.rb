@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_07_050133) do
+ActiveRecord::Schema.define(version: 2021_05_30_061319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2021_02_07_050133) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["device_id"], name: "index_device_ports_on_device_id"
+  end
+
+  create_table "device_ports_port_values", force: :cascade do |t|
+    t.bigint "device_port_id", null: false
+    t.bigint "port_value_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_port_id"], name: "index_device_ports_port_values_on_device_port_id"
+    t.index ["port_value_id"], name: "index_device_ports_port_values_on_port_value_id"
   end
 
   create_table "device_sequences", force: :cascade do |t|
@@ -59,9 +68,21 @@ ActiveRecord::Schema.define(version: 2021_02_07_050133) do
   create_table "port_values", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "name"
+    t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_port_values_on_organization_id"
+  end
+
+  create_table "sequences", force: :cascade do |t|
+    t.bigint "device_sequence_id", null: false
+    t.bigint "device_port_id", null: false
+    t.bigint "port_value_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_port_id"], name: "index_sequences_on_device_port_id"
+    t.index ["device_sequence_id"], name: "index_sequences_on_device_sequence_id"
+    t.index ["port_value_id"], name: "index_sequences_on_port_value_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -90,10 +111,15 @@ ActiveRecord::Schema.define(version: 2021_02_07_050133) do
   end
 
   add_foreign_key "device_ports", "devices"
+  add_foreign_key "device_ports_port_values", "device_ports"
+  add_foreign_key "device_ports_port_values", "port_values"
   add_foreign_key "device_sequences", "devices"
   add_foreign_key "devices", "organizations"
   add_foreign_key "devices_port_values", "devices"
   add_foreign_key "devices_port_values", "port_values"
   add_foreign_key "port_values", "organizations"
+  add_foreign_key "sequences", "device_ports"
+  add_foreign_key "sequences", "device_sequences"
+  add_foreign_key "sequences", "port_values"
   add_foreign_key "tokens", "users"
 end
