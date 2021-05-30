@@ -1,1 +1,1 @@
-json.extract! token, :expires_at, :token
+json.extract! token, :token

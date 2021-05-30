@@ -25,6 +25,7 @@ RSpec.describe Organization, type: :model do
       context 'associations' do
         it { should have_many(:admins) }
         it { should have_one(:owner) }
+        it { should have_one(:token) }
       end
     end
   end
