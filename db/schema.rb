@@ -50,15 +50,6 @@ ActiveRecord::Schema.define(version: 2021_05_30_061319) do
     t.index ["organization_id"], name: "index_devices_on_organization_id"
   end
 
-  create_table "devices_port_values", force: :cascade do |t|
-    t.bigint "device_id", null: false
-    t.bigint "port_value_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["device_id"], name: "index_devices_port_values_on_device_id"
-    t.index ["port_value_id"], name: "index_devices_port_values_on_port_value_id"
-  end
-
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -87,11 +78,12 @@ ActiveRecord::Schema.define(version: 2021_05_30_061319) do
 
   create_table "tokens", force: :cascade do |t|
     t.string "token"
-    t.bigint "user_id", null: false
+    t.string "entity_type"
+    t.bigint "entity_id"
     t.datetime "expires_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_tokens_on_user_id"
+    t.index ["entity_type", "entity_id"], name: "index_tokens_on_entity_type_and_entity_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -115,11 +107,8 @@ ActiveRecord::Schema.define(version: 2021_05_30_061319) do
   add_foreign_key "device_ports_port_values", "port_values"
   add_foreign_key "device_sequences", "devices"
   add_foreign_key "devices", "organizations"
-  add_foreign_key "devices_port_values", "devices"
-  add_foreign_key "devices_port_values", "port_values"
   add_foreign_key "port_values", "organizations"
   add_foreign_key "sequences", "device_ports"
   add_foreign_key "sequences", "device_sequences"
   add_foreign_key "sequences", "port_values"
-  add_foreign_key "tokens", "users"
 end

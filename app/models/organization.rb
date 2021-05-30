@@ -8,11 +8,15 @@
 #  updated_at :datetime         not null
 #
 class Organization < ApplicationRecord
+  include TokenConcerns
   #belongs_to :user
   has_one :owner
   has_many :admins
   has_many :devices
   has_many :port_values
+  has_one :token, as: :entity
+  after_create :generate_token
+
   #validations
   validates :name, presence: true, uniqueness: true
 end

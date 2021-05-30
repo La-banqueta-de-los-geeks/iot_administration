@@ -10,7 +10,6 @@ RSpec.describe V1::UsersController, type: :controller do
       context 'payload is correct' do
         subject { payload_crud }
         it { is_expected.to include(:user) }
-        it { is_expected.to include(:token) }
         it { is_expected.to include(:organization) }
       end
       context 'Correct user payload' do
@@ -28,9 +27,8 @@ RSpec.describe V1::UsersController, type: :controller do
         it { is_expected.to include(:updated_at) }
       end
       context 'Correct token payload' do
-        subject { payload_crud[:token] }
+        subject { payload_crud[:user][:token] }
         it { is_expected.to include(:token) }
-        it { is_expected.to include(:expires_at) }
       end
       context 'response' do
         subject { response }

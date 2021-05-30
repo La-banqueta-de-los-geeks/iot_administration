@@ -10,14 +10,8 @@ class V1::UsersController < ApplicationController
   def login
     @user = User.find_by(email: login_params[:email])
     return render json: { message: I18n.t("credentials.invalid") }, status: :bad_request unless @user.present?
-
     if @user.valid_password?(login_params[:password])
-      @token = Token.new(user_id: @user.id)
-      if @token.save
-        render :show, status: :ok
-      else
-        render json: { message: I18n.t("credentials.invalid") }, status: :bad_request
-      end
+      render :show, status: :ok
     else
       render json: { message: I18n.t("credentials.user_invalid") }, status: :bad_request
     end
@@ -26,12 +20,7 @@ class V1::UsersController < ApplicationController
   def create
     @user = Owner.new(user_params)
     if @user.save
-      @token = Token.new user_id: @user.id  # new -> #create -> #save
-      if @token.save
-        render :show, status: :created
-      else
-        render json: { response: I18n.t("credentials.error"), status: :bad_request }, status: :bad_request
-      end
+      render :show, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
