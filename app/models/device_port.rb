@@ -19,7 +19,8 @@
 #
 class DevicePort < ApplicationRecord
   belongs_to :device
-
+  has_and_belongs_to_many :port_values
+  has_many :sequences
   after_commit :send_status
 
   def send_status

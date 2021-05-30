@@ -11,6 +11,8 @@ class Organization < ApplicationRecord
   #belongs_to :user
   has_one :owner
   has_many :admins
+  has_many :devices
+  has_many :port_values
   #validations
   validates :name, presence: true, uniqueness: true
 end
