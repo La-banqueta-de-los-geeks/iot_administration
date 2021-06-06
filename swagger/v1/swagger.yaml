@@ -4,6 +4,20 @@ info:
   title: API V1
   version: v1
 components:
+  securityDefinitions:
+    client:
+      in: header
+      name: Authorization
+      type: http
+      require: true
+      description: Bearer Token
+      flow: application
+  securitySchemes:
+    Bearer:
+      description: Bearer user token key necessary to use API calls
+      type: apiKey
+      name: Authorization
+      in: header
   schemas:
     user:
       type: object
@@ -39,8 +53,158 @@ components:
         user:
           email: test@test.com
           password: '123456'
+    device:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        status:
+          type: string
+          required: true
+      example:
+        device:
+          name: Example Device
+          status: 'ON'
+    device_port:
+      type: object
+      properties:
+        port:
+          type: integer
+          required: true
+        status:
+          type: string
+          required: true
+      example:
+        device_port:
+          port: 1
+          status: 'ON'
 paths:
-  "/es/v1/users/":
+  "/v1/devices/device_ports":
+    post:
+      summary: Create device port
+      tags:
+      - device_ports
+      parameters:
+      - in: params
+        name: locale
+        description: Locale
+        schema:
+          type: string
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: device port created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/device_port"
+    get:
+      summary: Index device ports
+      tags:
+      - device_ports
+      parameters:
+      - in: params
+        name: locale
+        description: Locale
+        schema:
+          type: string
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: device port index
+  "/v1/devices/device_ports/{id}":
+    put:
+      summary: Update device ports
+      tags:
+      - device_ports
+      parameters:
+      - in: params
+        name: locale
+        description: Locale
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: device ports updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/device_port"
+  "/v1/devices/":
+    post:
+      summary: Create device
+      tags:
+      - devices
+      parameters:
+      - in: params
+        name: locale
+        description: Locale
+        schema:
+          type: string
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: device created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/device"
+    get:
+      summary: Index devices
+      tags:
+      - devices
+      parameters:
+      - in: params
+        name: locale
+        description: Locale
+        schema:
+          type: string
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: device updated
+  "/v1/devices/{id}":
+    put:
+      summary: Update device
+      tags:
+      - devices
+      parameters:
+      - in: params
+        name: locale
+        description: Locale
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: device updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/device"
+  "/v1/users/":
     post:
       summary: Creates a user
       tags:
@@ -54,7 +218,7 @@ paths:
           application/json:
             schema:
               "$ref": "#/components/schemas/user"
-  "/es/v1/users/login":
+  "/v1/users/login":
     post:
       summary: create user session
       tags:

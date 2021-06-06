@@ -18,13 +18,25 @@ class ApplicationController < ActionController::API
     if authorization.present?
       authorization = authorization.sub('Bearer ', '')
       token = Token.find_by(token: authorization)
-      if token.nil? && !token.is_valid?
+      if token.nil?
         head :unauthorized
       else
-        @current_user = token.user
+        instance_variable_set("@current_#{set_type(token)}", token.entity)
       end
     else
       head :unauthorized
     end
+  end
+
+  def set_type(token)
+    current_type[token.entity.class.name.to_sym]
+  end
+
+  def current_type
+    {
+      Owner: :user,
+      Organization: :organization,
+      Device: :device
+    }
   end
 end

@@ -9,6 +9,6 @@
 #
 FactoryBot.define do
   factory :organization do
-    name { Faker::Games::Pokemon.name }
+    name { "#{Faker::Games::Pokemon.name} #{rand(0..1000)}" }
   end
 end

@@ -1,0 +1,3 @@
+DeviceMailer#welcome
+
+Hi, find me in app/views/device_mailer/welcome

@@ -84,7 +84,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods.
 # ExcludedMethods: refine
 Metrics/BlockLength:
-  Max: 37
+  Max: 45
 
 # Offense count: 1
 # Configuration parameters: IgnoredMethods.
@@ -129,20 +129,9 @@ Style/ClassAndModuleChildren:
 # Offense count: 12
 Style/Documentation:
   Exclude:
+    - 'db/**/*'
     - 'spec/**/*'
     - 'test/**/*'
-    - 'app/controllers/v1/users_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/application_record.rb'
-    - 'db/migrate/20210207002009_devise_create_users.rb'
-    - 'db/migrate/20210207002010_create_organizations.rb'
-    - 'db/migrate/20210207002013_create_devices.rb'
-    - 'db/migrate/20210207002812_create_device_ports.rb'
-    - 'db/migrate/20210207005606_create_port_values.rb'
-    - 'db/migrate/20210207010324_create_devices_port_values.rb'
-    - 'db/migrate/20210207010748_create_device_sequences.rb'
-    - 'db/migrate/20210207050133_create_tokens.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.

@@ -18,6 +18,10 @@
 #  fk_rails_...  (organization_id => organizations.id)
 #
 class PortValue < ApplicationRecord
+  # Relationships
+  belongs_to :organization
   has_many :sequences
   has_and_belongs_to_many :device_ports
+  # Validations
+  validates :name, :value, presence: true
 end

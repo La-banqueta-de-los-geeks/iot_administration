@@ -22,6 +22,24 @@ RSpec.configure do |config|
         version: 'v1'
       },
       components: {
+        securityDefinitions: {
+          client: {
+            in: :header,
+            name: :Authorization,
+            type: 'http',
+            require: true,
+            description: 'Bearer Token',
+            flow: 'application'
+          }
+        },
+        securitySchemes: {
+          Bearer: {
+            description: 'Bearer user token key necessary to use API calls',
+            type: :apiKey,
+            name: 'Authorization',
+            in: :header
+          }
+        },
         schemas: {
           user: {
             type: 'object',
@@ -55,6 +73,32 @@ RSpec.configure do |config|
               user: {
                 email: 'test@test.com',
                 password: '123456'
+              }
+            }
+          },
+          device: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', required: true },
+              status: { type: 'string', required: true }
+            },
+            example: {
+              device: {
+                name: 'Example Device',
+                status: 'ON'
+              }
+            }
+          },
+          device_port: {
+            type: 'object',
+            properties: {
+              port: { type: 'integer', required: true },
+              status: { type: 'string', required: true }
+            },
+            example: {
+              device_port: {
+                port: 1,
+                status: 'ON'
               }
             }
           }

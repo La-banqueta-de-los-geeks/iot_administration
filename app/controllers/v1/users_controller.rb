@@ -7,9 +7,11 @@ class V1::UsersController < ApplicationController
     @users = User.all
   end
 
+  # TODO: Refector to concern
   def login
     @user = User.find_by(email: login_params[:email])
     return render json: { message: I18n.t("credentials.invalid") }, status: :bad_request unless @user.present?
+
     if @user.valid_password?(login_params[:password])
       render :show, status: :ok
     else

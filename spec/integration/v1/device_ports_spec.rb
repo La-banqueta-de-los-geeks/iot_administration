@@ -3,11 +3,11 @@ require 'rails_helper'
 require 'swagger_helper'
 
 describe 'devices API' do
-  path '/v1/devices/' do
-    post 'Create device' do
-      tags 'devices'
+  path '/v1/devices/device_ports' do
+    post 'Create device port' do
+      tags 'device_ports'
       consumes 'application/json'
-      parameter name: :device, in: :body, schema: { '$ref' => '#/components/schemas/device' }
+      parameter name: :device_ports, in: :body, schema: { '$ref' => '#/components/schemas/device_port' }
       parameter({
                   in: :params,
                   type: :string,
@@ -16,21 +16,38 @@ describe 'devices API' do
                 })
       security [Bearer: []]
 
-      response '201', 'device created' do
-        let(:owner) { create(:owner) }
-        let(:Authorization) { "Bearer #{owner.user_token}" }
-        let(:example) { build(:device, organization_id: owner.organization_id) }
-        let(:device) { { device: example.as_json } }
+      response '201', 'device port created' do
+        let(:device) { create(:device) }
+        let(:Authorization) { "Bearer #{device.device_token}" }
+        let(:examples) { build_list(:device_port, 10) }
+        let(:device_ports) { { device_ports: examples.map(&:as_json) } }
         run_test!
       end
     end
   end
-
-  path '/v1/devices/{id}' do
-    put 'Update device' do
-      tags 'devices'
+  path '/v1/devices/device_ports' do
+    get 'Index device ports' do
+      tags 'device_ports'
       consumes 'application/json'
-      parameter name: :device, in: :body, schema: { '$ref' => '#/components/schemas/device' }
+      parameter({
+                  in: :params,
+                  type: :string,
+                  name: :locale,
+                  description: 'Locale'
+                })
+      security [Bearer: []]
+      response '200', 'device port index' do
+        let(:device) { create(:device) }
+        let(:Authorization) { "Bearer #{device.device_token}" }
+        run_test!
+      end
+    end
+  end
+  path '/v1/devices/device_ports/{id}' do
+    put 'Update device ports' do
+      tags 'device_ports'
+      consumes 'application/json'
+      parameter name: :device_port, in: :body, schema: { '$ref' => '#/components/schemas/device_port' }
       parameter({
                   in: :params,
                   type: :string,
@@ -39,32 +56,13 @@ describe 'devices API' do
                 })
       security [Bearer: []]
       parameter({ name: :id, in: :path, type: :integer })
-      response '200', 'device updated' do
-        let(:owner) { create(:owner) }
-        let(:Authorization) { "Bearer #{owner.user_token}" }
-        let(:example) { create(:device, organization_id: owner.organization_id) }
+      response '200', 'device ports updated' do
+        let(:device) { create(:device) }
+        let(:Authorization) { "Bearer #{device.device_token}" }
+        let(:example) { create(:device_port, device_id: device.id) }
         let(:id) { example.id }
-        let(:device) { { device: example.as_json } }
+        let(:device_port) { { device_port: example.as_json } }
         run_test!
-      end
-    end
-
-    path '/v1/devices/' do
-      get 'Index devices' do
-        tags 'devices'
-        consumes 'application/json'
-        parameter({
-                    in: :params,
-                    type: :string,
-                    name: :locale,
-                    description: 'Locale'
-                  })
-        security [Bearer: []]
-        response '200', 'device updated' do
-          let(:owner) { create(:owner) }
-          let(:Authorization) { "Bearer #{owner.user_token}" }
-          run_test!
-        end
       end
     end
   end

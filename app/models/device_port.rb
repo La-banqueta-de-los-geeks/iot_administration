@@ -18,12 +18,17 @@
 #  fk_rails_...  (device_id => devices.id)
 #
 class DevicePort < ApplicationRecord
+  include TokenConcerns
+  after_commit :send_status
+  # Delegates
+  delegate :token, to: :token, prefix: :device, allow_nil: true
+  # Relationships
   belongs_to :device
   has_and_belongs_to_many :port_values
   has_many :sequences
-  after_commit :send_status
-
+  # validations
+  validates :port, :status, presence: true
   def send_status
-    Redis.current.publish "device_#{device_id}", to_json
+    Redis.current.publish "device_port_#{device_id}", to_json
   end
 end

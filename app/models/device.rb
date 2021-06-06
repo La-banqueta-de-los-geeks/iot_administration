@@ -18,8 +18,18 @@
 #  fk_rails_...  (organization_id => organizations.id)
 #
 class Device < ApplicationRecord
+  include TokenConcerns
+  # Callbacks
+  after_create :generate_token
+  # Delegates
+  delegate :token, to: :token, prefix: :device, allow_nil: true
+  # Relationships
   belongs_to :organization
+  has_one :token, as: :entity
   has_many :device_ports
   has_many :device_sequences
   has_and_belongs_to_many :port_values
+  # Validations
+  validates :name, :status, :organization_id, presence: true
+  validates_inclusion_of :status, in: %w[ON OFF]
 end

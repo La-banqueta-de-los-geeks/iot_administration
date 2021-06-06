@@ -3,7 +3,7 @@ require 'rails_helper'
 require 'swagger_helper'
 
 describe 'Users API' do
-  path '/es/v1/users/' do
+  path '/v1/users/' do
     post 'Creates a user' do
       tags 'Users'
       consumes 'application/json'
@@ -15,7 +15,7 @@ describe 'Users API' do
       end
     end
   end
-  path '/es/v1/users/login' do
+  path '/v1/users/login' do
     post 'create user session' do
       tags 'Users'
       consumes 'application/json'

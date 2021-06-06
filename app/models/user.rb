@@ -22,6 +22,9 @@
 #
 class User < ApplicationRecord
   include TokenConcerns
+  after_create :generate_token
+  # Delegates
+  delegate :token, to: :token, prefix: :user, allow_nil: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -31,7 +34,6 @@ class User < ApplicationRecord
   has_one :token, as: :entity
   # Nested attributes
   accepts_nested_attributes_for :organization
-  after_create :generate_token
   # Validations
   validates :email, uniqueness: true, presence: true, on: :create
   validates :password, presence: true, on: :create

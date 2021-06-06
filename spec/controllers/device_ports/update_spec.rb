@@ -1,45 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe V1::DevicesController, type: :controller do
-  describe 'Update devices' do
-    let(:user) { create(:owner) }
-    let(:device) { create(:device, organization_id: user.organization_id) }
-    let(:headers) { { Authorization: "Bearer #{user.user_token}" } }
+RSpec.describe V1::Devices::DevicePortsController, type: :controller do
+  describe 'Update device port' do
+    let(:device) { create(:device) }
+    let(:headers) { { Authorization: "Bearer #{device.device_token}" } }
+    let(:device_port) { create(:device_port, device: device) }
     before do
       request.headers.merge! headers
-      device.name = Faker::Games::Pokemon.name
-      put(:update, format: :json, params: { device: device.as_json, id: device.id })
+      put(:update, format: :json, params: { device_port: device_port.as_json(only: %i[port status]), id: device_port.id })
     end
-    context 'Updated device successfully' do
+    context 'Update device port successfully' do
       context 'Status OK' do
         subject { response }
         it { is_expected.to have_http_status(:ok) }
       end
       context 'Payload correct data' do
         subject { payload_crud }
-        it { is_expected.to include(:device) }
+        it { is_expected.to include(:device_port) }
       end
-      context 'Device correct data' do
-        subject { payload_crud[:device] }
-        it { is_expected.to include(:name) }
+      context 'Device ports correct data' do
+        subject { payload_crud[:device_port] }
+        it { is_expected.to include(:port) }
         it { is_expected.to include(:status) }
-        it { is_expected.to include(:organization_id) }
-        it { is_expected.to include(:device_token) }
-      end
-    end
-    context 'Failed device update' do
-      before do
-        device.name = nil
-        request.headers.merge! headers
-        put(:update, format: :json, params: { device: device.as_json, id: device.id })
-      end
-      context 'Status BAD REQUEST' do
-        subject { response }
-        it { is_expected.to have_http_status(:bad_request) }
-      end
-      context 'Estructura del lista de errores correcto' do
-        subject { payload_crud }
-        it { is_expected.to include(:errors) }
+        it { is_expected.to include(:device_id) }
       end
     end
   end

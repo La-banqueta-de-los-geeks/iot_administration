@@ -9,7 +9,9 @@
 #
 class Organization < ApplicationRecord
   include TokenConcerns
-  #belongs_to :user
+  # Delegates
+  delegate :token, to: :token, prefix: :organization, allow_nil: true
+  # Relationships
   has_one :owner
   has_many :admins
   has_many :devices

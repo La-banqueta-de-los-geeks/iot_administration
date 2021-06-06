@@ -15,7 +15,7 @@
 #  index_tokens_on_entity_type_and_entity_id  (entity_type,entity_id)
 #
 class Token < ApplicationRecord
-  belongs_to :entity, :polymorphic => true
+  belongs_to :entity, polymorphic: true
   before_create :generate_token
   validates :entity_type, :entity_id, presence: true
 
