@@ -1,52 +1,20 @@
 # == Route Map
 #
-# E, [2021-05-14T05:05:13.411738 #157] ERROR -- : coverage failed to store
-# E, [2021-05-14T05:05:13.411796 #157] ERROR -- : Coverband Error: #<Redis::CannotConnectError: Error connecting to Redis on 127.0.0.1:6379 (Errno::ECONNREFUSED)> Error connecting to Redis on 127.0.0.1:6379 (Errno::ECONNREFUSED)
-# D, [2021-05-14T05:05:13.435671 #157] DEBUG -- : using default configuration
+# D, [2021-06-06T05:04:19.029139 #1658] DEBUG -- : using default configuration
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
 #                              rswag_ui        /api-docs                                                                                Rswag::Ui::Engine
 #                             rswag_api        /api-docs                                                                                Rswag::Api::Engine
-#                           sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
-#                                  root GET    /(:locale)(.:format)                                                                     home#index {:locale=>/es|en/}
+#                           sidekiq_web        /admin                                                                                   Sidekiq::Web
+#                                              /coverage                                                                                #<Coverband::Reporters::Web:0x000055a12f2d2e60 @static=#<Rack::Static:0x000055a12fb37f60 @app=#<Coverband::Reporters::Web:0x000055a12f2d2e60 ...>, @urls=[/.*\.css/, /.*\.js/, /.*\.gif/, /.*\.png/], @index=nil, @gzip=nil, @cascade=nil, @header_rules=[], @file_server=#<Rack::Files:0x000055a12fb37ee8 @root="/usr/local/bundle/gems/coverband-5.1.0/public", @headers={}, @default_mime="text/plain", @head=#<Rack::Head:0x000055a12fb37d80 @app=#<Proc:0x000055a12fb37da8 /usr/local/bundle/gems/rack-2.2.3/lib/rack/files.rb:33 (lambda)>>>>>
+#                            v1_devices GET    (/:locale)/v1/devices(.:format)                                                          v1/devices#index {:format=>"json", :locale=>/es|en/}
+#                                       POST   (/:locale)/v1/devices(.:format)                                                          v1/devices#create {:format=>"json", :locale=>/es|en/}
+#                             v1_device PATCH  (/:locale)/v1/devices/:id(.:format)                                                      v1/devices#update {:format=>"json", :locale=>/es|en/}
+#                                       PUT    (/:locale)/v1/devices/:id(.:format)                                                      v1/devices#update {:format=>"json", :locale=>/es|en/}
+#               v1_devices_device_ports GET    (/:locale)/v1/devices/device_ports(.:format)                                             v1/devices/device_ports#index {:format=>"json", :locale=>/es|en/}
+#                                       POST   (/:locale)/v1/devices/device_ports(.:format)                                             v1/devices/device_ports#create {:format=>"json", :locale=>/es|en/}
+#          v1_organizations_port_values POST   (/:locale)/v1/organizations/port_values(.:format)                                        v1/organizations/port_values#create {:format=>"json", :locale=>/es|en/}
 #                        login_v1_users POST   (/:locale)/v1/users/login(.:format)                                                      v1/users#login {:format=>"json", :locale=>/es|en/}
-#                              v1_users GET    (/:locale)/v1/users(.:format)                                                            v1/users#index {:format=>"json", :locale=>/es|en/}
-#                                       POST   (/:locale)/v1/users(.:format)                                                            v1/users#create {:format=>"json", :locale=>/es|en/}
-#                               v1_user GET    (/:locale)/v1/users/:id(.:format)                                                        v1/users#show {:format=>"json", :locale=>/es|en/}
-#                                       PATCH  (/:locale)/v1/users/:id(.:format)                                                        v1/users#update {:format=>"json", :locale=>/es|en/}
-#                                       PUT    (/:locale)/v1/users/:id(.:format)                                                        v1/users#update {:format=>"json", :locale=>/es|en/}
-#                                       DELETE (/:locale)/v1/users/:id(.:format)                                                        v1/users#destroy {:format=>"json", :locale=>/es|en/}
-#                           v1_profiles GET    (/:locale)/v1/profiles(.:format)                                                         v1/profiles#index {:format=>"json", :locale=>/es|en/}
-#                                       POST   (/:locale)/v1/profiles(.:format)                                                         v1/profiles#create {:format=>"json", :locale=>/es|en/}
-#                            v1_profile GET    (/:locale)/v1/profiles/:id(.:format)                                                     v1/profiles#show {:format=>"json", :locale=>/es|en/}
-#                                       PATCH  (/:locale)/v1/profiles/:id(.:format)                                                     v1/profiles#update {:format=>"json", :locale=>/es|en/}
-#                                       PUT    (/:locale)/v1/profiles/:id(.:format)                                                     v1/profiles#update {:format=>"json", :locale=>/es|en/}
-#                                       DELETE (/:locale)/v1/profiles/:id(.:format)                                                     v1/profiles#destroy {:format=>"json", :locale=>/es|en/}
-#                              v1_notes GET    (/:locale)/v1/notes(.:format)                                                            v1/notes#index {:format=>"json", :locale=>/es|en/}
-#                                       POST   (/:locale)/v1/notes(.:format)                                                            v1/notes#create {:format=>"json", :locale=>/es|en/}
-#                               v1_note GET    (/:locale)/v1/notes/:id(.:format)                                                        v1/notes#show {:format=>"json", :locale=>/es|en/}
-#                                       PATCH  (/:locale)/v1/notes/:id(.:format)                                                        v1/notes#update {:format=>"json", :locale=>/es|en/}
-#                                       PUT    (/:locale)/v1/notes/:id(.:format)                                                        v1/notes#update {:format=>"json", :locale=>/es|en/}
-#                                       DELETE (/:locale)/v1/notes/:id(.:format)                                                        v1/notes#destroy {:format=>"json", :locale=>/es|en/}
-#              assign_challenge_v1_post POST   (/:locale)/v1/posts/:id/assign_challenge(.:format)                                       v1/posts#assign_challenge {:format=>"json", :locale=>/es|en/}
-#            unassign_challenge_v1_post DELETE (/:locale)/v1/posts/:id/unassign_challenge(.:format)                                     v1/posts#unassign_challenge {:format=>"json", :locale=>/es|en/}
-#                              v1_posts GET    (/:locale)/v1/posts(.:format)                                                            v1/posts#index {:format=>"json", :locale=>/es|en/}
-#                                       POST   (/:locale)/v1/posts(.:format)                                                            v1/posts#create {:format=>"json", :locale=>/es|en/}
-#                               v1_post GET    (/:locale)/v1/posts/:id(.:format)                                                        v1/posts#show {:format=>"json", :locale=>/es|en/}
-#                                       PATCH  (/:locale)/v1/posts/:id(.:format)                                                        v1/posts#update {:format=>"json", :locale=>/es|en/}
-#                                       PUT    (/:locale)/v1/posts/:id(.:format)                                                        v1/posts#update {:format=>"json", :locale=>/es|en/}
-#                                       DELETE (/:locale)/v1/posts/:id(.:format)                                                        v1/posts#destroy {:format=>"json", :locale=>/es|en/}
-#                               v1_rols GET    (/:locale)/v1/rols(.:format)                                                             v1/rols#index {:format=>"json", :locale=>/es|en/}
-#                                       POST   (/:locale)/v1/rols(.:format)                                                             v1/rols#create {:format=>"json", :locale=>/es|en/}
-#                                v1_rol GET    (/:locale)/v1/rols/:id(.:format)                                                         v1/rols#show {:format=>"json", :locale=>/es|en/}
-#                                       PATCH  (/:locale)/v1/rols/:id(.:format)                                                         v1/rols#update {:format=>"json", :locale=>/es|en/}
-#                                       PUT    (/:locale)/v1/rols/:id(.:format)                                                         v1/rols#update {:format=>"json", :locale=>/es|en/}
-#                                       DELETE (/:locale)/v1/rols/:id(.:format)                                                         v1/rols#destroy {:format=>"json", :locale=>/es|en/}
-#                         v1_challenges GET    (/:locale)/v1/challenges(.:format)                                                       v1/challenges#index {:format=>"json", :locale=>/es|en/}
-#                                       POST   (/:locale)/v1/challenges(.:format)                                                       v1/challenges#create {:format=>"json", :locale=>/es|en/}
-#                          v1_challenge GET    (/:locale)/v1/challenges/:id(.:format)                                                   v1/challenges#show {:format=>"json", :locale=>/es|en/}
-#                                       PATCH  (/:locale)/v1/challenges/:id(.:format)                                                   v1/challenges#update {:format=>"json", :locale=>/es|en/}
-#                                       PUT    (/:locale)/v1/challenges/:id(.:format)                                                   v1/challenges#update {:format=>"json", :locale=>/es|en/}
-#                                       DELETE (/:locale)/v1/challenges/:id(.:format)                                                   v1/challenges#destroy {:format=>"json", :locale=>/es|en/}
+#                              v1_users POST   (/:locale)/v1/users(.:format)                                                            v1/users#create {:format=>"json", :locale=>/es|en/}
 #         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
 #            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create
 #         rails_sendgrid_inbound_emails POST   /rails/action_mailbox/sendgrid/inbound_emails(.:format)                                  action_mailbox/ingresses/sendgrid/inbound_emails#create
@@ -70,32 +38,28 @@
 #
 #
 # Routes for Rswag::Api::Engine:
+
+require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
-  require 'sidekiq/web'
-  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
+  mount Sidekiq::Web => "/admin" # mount Sidekiq::Web in your Rails app
   mount Coverband::Reporters::Web.new, at: '/coverage'
   scope "(:locale)", locale: /es|en/ do
-    root "home#index"
     namespace :v1, :defaults => { :format => "json" } do
-      resources :users do
+      resources :devices, only: %i[create update index]
+      namespace :devices do
+        resources :device_ports, only: %i[create index update]
+      end
+      namespace :organizations do
+        resources :port_values, only: %i[create index]
+      end
+      resources :users, only: %i[create] do
         collection do
           post "login"
         end
       end
-      resources :profiles
-      resources :notes
-      resources :posts do
-        member do
-          post :assign_challenge
-          delete :unassign_challenge
-        end
-      end
-      resources :rols
-      resources :challenges
     end
   end
-  #mount Coverband::Reporters::Web.new, at: '/coverage' if ENV['RAILS_ENV']  != 'test'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
