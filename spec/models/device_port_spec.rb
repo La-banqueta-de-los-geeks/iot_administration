@@ -20,6 +20,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe DevicePortsPortValue, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe DevicePort, type: :model do
+
 end
