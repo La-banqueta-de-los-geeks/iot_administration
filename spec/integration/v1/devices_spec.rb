@@ -5,7 +5,7 @@ require 'swagger_helper'
 describe 'devices API' do
   path '/v1/devices/' do
     post 'Create device' do
-      tags 'devices'
+      tags 'Devices'
       consumes 'application/json'
       parameter name: :device, in: :body, schema: { '$ref' => '#/components/schemas/device' }
       parameter({
@@ -28,7 +28,7 @@ describe 'devices API' do
 
   path '/v1/devices/{id}' do
     put 'Update device' do
-      tags 'devices'
+      tags 'Devices'
       consumes 'application/json'
       parameter name: :device, in: :body, schema: { '$ref' => '#/components/schemas/device' }
       parameter({
@@ -51,7 +51,7 @@ describe 'devices API' do
 
     path '/v1/devices/' do
       get 'Index devices' do
-        tags 'devices'
+        tags 'Devices'
         consumes 'application/json'
         parameter({
                     in: :params,

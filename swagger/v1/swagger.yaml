@@ -79,12 +79,28 @@ components:
         device_port:
           port: 1
           status: 'ON'
+    device_ports:
+      type: array
+      collectionFormat: multi
+      items:
+        type: object
+        properties:
+          port:
+            type: integer
+            required: true
+          status:
+            type: string
+            required: true
+      example:
+        device_ports:
+        - port: 1
+          status: 'ON'
 paths:
   "/v1/devices/device_ports":
     post:
       summary: Create device port
       tags:
-      - device_ports
+      - Device ports
       parameters:
       - in: params
         name: locale
@@ -100,11 +116,11 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/device_port"
+              "$ref": "#/components/schemas/device_ports"
     get:
       summary: Index device ports
       tags:
-      - device_ports
+      - Device ports
       parameters:
       - in: params
         name: locale
@@ -120,7 +136,7 @@ paths:
     put:
       summary: Update device ports
       tags:
-      - device_ports
+      - Device ports
       parameters:
       - in: params
         name: locale
@@ -146,7 +162,7 @@ paths:
     post:
       summary: Create device
       tags:
-      - devices
+      - Devices
       parameters:
       - in: params
         name: locale
@@ -166,7 +182,7 @@ paths:
     get:
       summary: Index devices
       tags:
-      - devices
+      - Devices
       parameters:
       - in: params
         name: locale
@@ -182,7 +198,7 @@ paths:
     put:
       summary: Update device
       tags:
-      - devices
+      - Devices
       parameters:
       - in: params
         name: locale

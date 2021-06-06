@@ -101,6 +101,25 @@ RSpec.configure do |config|
                 status: 'ON'
               }
             }
+          },
+          device_ports: {
+            type: 'array',
+            collectionFormat: 'multi',
+            items: {
+              type: 'object',
+              properties: {
+                port: { type: 'integer', required: true },
+                status: { type: 'string', required: true }
+              }
+            },
+            example: {
+              device_ports: [
+                {
+                  port: 1,
+                  status: 'ON'
+                }
+              ]
+            }
           }
         }
       },

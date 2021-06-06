@@ -5,9 +5,9 @@ require 'swagger_helper'
 describe 'devices API' do
   path '/v1/devices/device_ports' do
     post 'Create device port' do
-      tags 'device_ports'
+      tags 'Device ports'
       consumes 'application/json'
-      parameter name: :device_ports, in: :body, schema: { '$ref' => '#/components/schemas/device_port' }
+      parameter name: :device_ports, in: :body, schema: { '$ref' => '#/components/schemas/device_ports' }
       parameter({
                   in: :params,
                   type: :string,
@@ -27,7 +27,7 @@ describe 'devices API' do
   end
   path '/v1/devices/device_ports' do
     get 'Index device ports' do
-      tags 'device_ports'
+      tags 'Device ports'
       consumes 'application/json'
       parameter({
                   in: :params,
@@ -45,7 +45,7 @@ describe 'devices API' do
   end
   path '/v1/devices/device_ports/{id}' do
     put 'Update device ports' do
-      tags 'device_ports'
+      tags 'Device ports'
       consumes 'application/json'
       parameter name: :device_port, in: :body, schema: { '$ref' => '#/components/schemas/device_port' }
       parameter({
