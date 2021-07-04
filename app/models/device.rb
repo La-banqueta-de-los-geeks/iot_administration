@@ -21,6 +21,7 @@ class Device < ApplicationRecord
   include TokenConcerns
   # Callbacks
   after_create :generate_token
+  after_commit :send_status
   # Delegates
   delegate :token, to: :token, prefix: :device, allow_nil: true
   # Relationships
@@ -32,4 +33,7 @@ class Device < ApplicationRecord
   # Validations
   validates :name, :status, :organization_id, presence: true
   validates_inclusion_of :status, in: %w[ON OFF]
+  def send_status
+    Redis.current.publish "device_#{device_id}", to_json
+  end
 end
