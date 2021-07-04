@@ -129,7 +129,7 @@ RSpec.configure do |config|
           url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'localhost:4000'
+              default: "#{ENV['URL_API']}:#{ENV['URL_API_HOST']}"
             }
           }
         }
