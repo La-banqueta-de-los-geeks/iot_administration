@@ -28,10 +28,7 @@ RSpec.describe V1::UsersController, type: :controller do
         it { is_expected.to include(:name) }
         it { is_expected.to include(:created_at) }
         it { is_expected.to include(:updated_at) }
-      end
-      context 'Correct token payload' do
-        subject { payload_crud[:user][:token] }
-        it { is_expected.to include(:token) }
+        it { is_expected.to include(:organization_token) }
       end
       context 'response' do
         subject { response }

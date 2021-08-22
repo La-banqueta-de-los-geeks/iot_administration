@@ -77,3 +77,7 @@ gem "rswag-ui", "~> 2.4"
 gem "rails-i18n", "~> 6.0"
 
 gem "rails-erd", "~> 1.6"
+
+gem "mqtt", "~> 0.5.0"
+
+gem "mailcatcher", "~> 0.2.4"

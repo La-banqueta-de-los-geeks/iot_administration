@@ -52,4 +52,12 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: ENV["URL_API"], port: ENV["URL_API_HOST"] }
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = { 
+      address: 'mailcatcher',
+      port: 1025 
+  }
+
 end

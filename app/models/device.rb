@@ -34,6 +34,6 @@ class Device < ApplicationRecord
   validates :name, :status, :organization_id, presence: true
   validates_inclusion_of :status, in: %w[ON OFF]
   def send_status
-    Redis.current.publish "device_#{device_id}", to_json
+    #Redis.current.publish "device_#{device_id}", to_json
   end
 end

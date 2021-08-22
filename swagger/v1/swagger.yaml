@@ -4,14 +4,6 @@ info:
   title: API V1
   version: v1
 components:
-  securityDefinitions:
-    client:
-      in: header
-      name: Authorization
-      type: http
-      require: true
-      description: Bearer Token
-      flow: application
   securitySchemes:
     Bearer:
       description: Bearer user token key necessary to use API calls
@@ -228,7 +220,9 @@ paths:
       parameters: []
       responses:
         '201':
-          description: blog created
+          description: user created
+        '400':
+          description: Can't register user
       requestBody:
         content:
           application/json:
@@ -242,7 +236,9 @@ paths:
       parameters: []
       responses:
         '200':
-          description: successful
+          description: Successful login
+        '400':
+          description: Can't login
       requestBody:
         content:
           application/json:
