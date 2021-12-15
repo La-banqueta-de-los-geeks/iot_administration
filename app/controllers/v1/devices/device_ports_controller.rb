@@ -9,10 +9,17 @@ module V1
       end
 
       def create
-        @result_device_ports = @current_device.device_ports.create(device_ports_params)
-        @device_ports = @result_device_ports.select(&:id)
-        @device_ports_errors = display_messages_errors
-        render :index, status: @device_ports.size.positive? ? :created : :bad_request
+        if device_ports_params
+          create_device_ports
+        else
+          @device_port = @current_device.device_ports.create(device_port_params)
+          if @device_port.valid?
+            @device_port.save
+            render :show, status: :created
+          else
+            render json: { errors: @device_port.errors.full_messages }, status: :bad_request
+          end
+        end
       end
 
       def update
@@ -35,6 +42,13 @@ module V1
       end
 
       private
+
+      def create_device_ports
+        @result_device_ports = @current_device.device_ports.create(device_ports_params)
+        @device_ports = @result_device_ports.select(&:id)
+        @device_ports_errors = display_messages_errors
+        render :index, status: @device_ports.size.positive? ? :created : :bad_request
+      end
 
       def set_device_port
         @device_port = @current_device.device_ports.find(params[:id])

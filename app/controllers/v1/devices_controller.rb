@@ -10,7 +10,7 @@ module V1
         @device.save
         render :show, status: :created
       else
-        render json: { errors: @device.errors.messages }, status: :bad_request
+        render json: { errors: @device.errors.full_messages }, status: :bad_request
       end
     end
 

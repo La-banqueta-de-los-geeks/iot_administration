@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 2021_05_30_061319) do
     t.string "token"
     t.string "entity_type"
     t.bigint "entity_id"
-    t.datetime "expires_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["entity_type", "entity_id"], name: "index_tokens_on_entity_type_and_entity_id"

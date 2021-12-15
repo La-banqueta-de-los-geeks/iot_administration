@@ -4,7 +4,6 @@
 #
 #  id          :bigint           not null, primary key
 #  entity_type :string
-#  expires_at  :datetime
 #  token       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
