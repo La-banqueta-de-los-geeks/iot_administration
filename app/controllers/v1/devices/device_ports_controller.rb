@@ -5,7 +5,7 @@ module V1
       before_action :set_device_port, only: %i[update]
 
       def index
-        @device_ports = @current_device.device_ports.where(device_id: @current_device.id)
+        @device_ports = @current_device.device_ports.order(id: :asc)
       end
 
       def create
