@@ -1,27 +1,25 @@
 # == Schema Information
 # Schema version: 20210530061319
 #
-# Table name: device_ports
+# Table name: device_sequences
 #
 #  id         :bigint           not null, primary key
-#  port       :string
-#  status     :string
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  device_id  :bigint           not null
 #
 # Indexes
 #
-#  index_device_ports_on_device_id  (device_id)
+#  index_device_sequences_on_device_id  (device_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (device_id => devices.id)
 #
 FactoryBot.define do
-  factory :device_port do
-    status { %i[ON OFF][rand(0..1)] }
-    port { 0 }
+  factory :device_sequence do
+    name { Faker::Games::Pokemon.name }
     device
   end
 end
