@@ -23,7 +23,7 @@ if Rails.env.development?
       'simple_indexes'              => 'false',
       'model_dir'                   => 'app/models',
       'root_dir'                    => '',
-      'include_version'             => 'false',
+      'include_version'             => 'true',
       'require'                     => '',
       'exclude_tests'               => 'false',
       'exclude_fixtures'            => 'false',
