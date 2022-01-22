@@ -1,11 +1,11 @@
 # == Route Map
 #
-# D, [2021-07-05T01:06:32.865297 #399] DEBUG -- : using default configuration
+# D, [2022-01-22T18:39:11.003269 #688] DEBUG -- : using default configuration
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
 #                              rswag_ui        /api-docs                                                                                Rswag::Ui::Engine
 #                             rswag_api        /api-docs                                                                                Rswag::Api::Engine
 #                           sidekiq_web        /admin                                                                                   Sidekiq::Web
-#                                              /coverage                                                                                #<Coverband::Reporters::Web:0x000056210bba4b18 @static=#<Rack::Static:0x000056210bc0e450 @app=#<Coverband::Reporters::Web:0x000056210bba4b18 ...>, @urls=[/.*\.css/, /.*\.js/, /.*\.gif/, /.*\.png/], @index=nil, @gzip=nil, @cascade=nil, @header_rules=[], @file_server=#<Rack::Files:0x000056210bc0e360 @root="/usr/local/bundle/gems/coverband-5.1.0/public", @headers={}, @default_mime="text/plain", @head=#<Rack::Head:0x000056210bc0df78 @app=#<Proc:0x000056210bc0dfc8 /usr/local/bundle/gems/rack-2.2.3/lib/rack/files.rb:33 (lambda)>>>>>
+#                                              /coverage                                                                                #<Coverband::Reporters::Web:0x000055a833b60db0 @static=#<Rack::Static:0x000055a833bd6df8 @app=#<Coverband::Reporters::Web:0x000055a833b60db0 ...>, @urls=[/.*\.css/, /.*\.js/, /.*\.gif/, /.*\.png/], @index=nil, @gzip=nil, @cascade=nil, @header_rules=[], @file_server=#<Rack::Files:0x000055a833bd6da8 @root="/usr/local/bundle/gems/coverband-5.2.1/public", @headers={}, @default_mime="text/plain", @head=#<Rack::Head:0x000055a833bd6cb8 @app=#<Proc:0x000055a833bd6ce0 /usr/local/bundle/gems/rack-2.2.3/lib/rack/files.rb:33 (lambda)>>>>>
 #                            v1_devices GET    (/:locale)/v1/devices(.:format)                                                          v1/devices#index {:format=>"json", :locale=>/es|en/}
 #                                       POST   (/:locale)/v1/devices(.:format)                                                          v1/devices#create {:format=>"json", :locale=>/es|en/}
 #                             v1_device PATCH  (/:locale)/v1/devices/:id(.:format)                                                      v1/devices#update {:format=>"json", :locale=>/es|en/}
@@ -14,6 +14,9 @@
 #                                       POST   (/:locale)/v1/devices/device_ports(.:format)                                             v1/devices/device_ports#create {:format=>"json", :locale=>/es|en/}
 #                v1_devices_device_port PATCH  (/:locale)/v1/devices/device_ports/:id(.:format)                                         v1/devices/device_ports#update {:format=>"json", :locale=>/es|en/}
 #                                       PUT    (/:locale)/v1/devices/device_ports/:id(.:format)                                         v1/devices/device_ports#update {:format=>"json", :locale=>/es|en/}
+#           v1_devices_device_sequences POST   (/:locale)/v1/devices/device_sequences(.:format)                                         v1/devices/device_sequences#create {:format=>"json", :locale=>/es|en/}
+#            v1_devices_device_sequence PATCH  (/:locale)/v1/devices/device_sequences/:id(.:format)                                     v1/devices/device_sequences#update {:format=>"json", :locale=>/es|en/}
+#                                       PUT    (/:locale)/v1/devices/device_sequences/:id(.:format)                                     v1/devices/device_sequences#update {:format=>"json", :locale=>/es|en/}
 #          v1_organizations_port_values GET    (/:locale)/v1/organizations/port_values(.:format)                                        v1/organizations/port_values#index {:format=>"json", :locale=>/es|en/}
 #                                       POST   (/:locale)/v1/organizations/port_values(.:format)                                        v1/organizations/port_values#create {:format=>"json", :locale=>/es|en/}
 #                        login_v1_users POST   (/:locale)/v1/users/login(.:format)                                                      v1/users#login {:format=>"json", :locale=>/es|en/}
@@ -53,6 +56,7 @@ Rails.application.routes.draw do
       resources :devices, only: %i[create update index]
       namespace :devices do
         resources :device_ports, only: %i[create index update]
+        resources :device_sequences, only: %i[create update]
       end
       namespace :organizations do
         resources :port_values, only: %i[create index]
