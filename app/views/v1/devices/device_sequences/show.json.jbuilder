@@ -1,0 +1,1 @@
+json.device_sequence @device_sequence, partial: 'v1/devices/device_sequences/device_sequence', as: :device_sequence
