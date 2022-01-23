@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe V1::Devices::DeviceSequencesController, type: :controller do
   describe 'Create device sequences' do
     let(:device) { create(:device) }
+    let(:device_group) { create(:device_group, device:device) }
     let(:headers) { { Authorization: "Bearer #{device.device_token}" } }
-    let(:device_sequence) { build(:device_sequence, device: device) }
+    let(:device_sequence) { build(:device_sequence, device_group: device_group) }
     before do
       request.headers.merge! headers
-      post(:create, format: :json, params: { device_sequence: device_sequence.as_json(only: [:name]) })
+      post(:create, format: :json, params: { device_group_id: device_sequence.device_group_id, device_sequence: device_sequence.as_json(only: [:name]) })
     end
     context 'Create device sequence successfully' do
       context 'Status CREATED' do
@@ -21,7 +22,7 @@ RSpec.describe V1::Devices::DeviceSequencesController, type: :controller do
       context 'Device sequence correct data' do
         subject { payload_crud[:device_sequence] }
         it { is_expected.to include(:name) }
-        it { is_expected.to include(:device_id) }
+        it { is_expected.to include(:device_group_id) }
       end
     end
   end

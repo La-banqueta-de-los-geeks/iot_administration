@@ -13,7 +13,7 @@ describe 'Users API' do
         let(:user) { { user: { email: 'foo@test.com', password: '12345678', organization_attributes: { name: 'test' } } } }
         run_test!
       end
-      response 400, "Can't register user" do 
+      response 400, "Can't register user" do
         let(:user) { { user: { email: 'foo@test.com' } } }
         run_test!
       end

@@ -29,7 +29,7 @@ module V1
     private
 
     def set_organization
-      @organization = Organization.preload(devices: [:token]).find(@current_user.organization_id)
+      @organization = Organization.preload(devices: [:token, :device_groups]).find(@current_user.organization_id)
     rescue StandardError => e
       head :unauthorized
     end

@@ -2,10 +2,16 @@ module V1
   module Devices
     class DeviceSequencesController < ApplicationController
       before_action :authenticate!
+      before_action :set_device_group
       before_action :set_device_sequence, only: %i[update]
 
+      def index
+        @device_sequences = @device_group.device_sequences
+        render :index, status: :ok
+      end
+
       def create
-        @device_sequence = @current_device.device_sequences.create(device_sequence_params)
+        @device_sequence = @device_group.device_sequences.create(device_sequence_params)
         if @device_sequence.valid?
           @device_sequence.save
           render :show, status: :created
@@ -24,12 +30,16 @@ module V1
 
       private
 
+      def set_device_group
+        @device_group = @current_device.device_groups.find(params[:device_group_id])
+      end
+
       def device_sequence_params
         params.require(:device_sequence).permit(:name)
       end
 
       def set_device_sequence
-        @device_sequence = @current_device.device_sequences.find(params[:id])
+        @device_sequence = @device_group.device_sequences.find(params[:id])
       end
     end
   end

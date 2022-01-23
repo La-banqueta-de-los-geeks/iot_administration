@@ -29,7 +29,7 @@ class Device < ApplicationRecord
   belongs_to :organization
   has_one :token, as: :entity
   has_many :device_ports
-  has_many :device_sequences
+  has_many :device_groups
   has_and_belongs_to_many :port_values
   # Validations
   validates :name, :status, :organization_id, presence: true
