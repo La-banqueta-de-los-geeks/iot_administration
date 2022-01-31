@@ -1,3 +1,17 @@
+##
+# Creates a process for send data to devices.
+#
+# Autor::   Jesus Martinez
+# Web::     www.vurokrazia.com
+#
+# == Example
+# === ActionSequence
+# With this example you can
+# - Update status of device
+# - Create a bucle for times
+# - Send the data with redis before updated
+#
+# If the device exists update the status for times
 class ActionSequence
   attr_accessor :device, :device_port_ids, :time
 
@@ -8,7 +22,7 @@ class ActionSequence
   end
 
   def call(status)
-    statuses.each{|status|    device_ports_update( status) }
+    statuses.each { |status| device_ports_update(status) }
   end
 
   private
