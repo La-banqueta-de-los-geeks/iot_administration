@@ -48,18 +48,18 @@
 #
 # Routes for Rswag::Api::Engine:
 
-require 'sidekiq/web'
+require "sidekiq/web"
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
   mount Sidekiq::Web => "/admin" # mount Sidekiq::Web in your Rails app
-  mount Coverband::Reporters::Web.new, at: '/coverage'
+  mount Coverband::Reporters::Web.new, at: "/coverage" if Rails.env.development?
   scope "(:locale)", locale: /es|en/ do
     namespace :v1, :defaults => { :format => "json" } do
       resources :devices, only: %i[create update index]
       namespace :devices do
         resources :device_groups, only: %i[index create update] do
-          resources :device_sequences, only: %i[create update index] do 
+          resources :device_sequences, only: %i[create update index] do
             resources :sequences, only: %i[create update index]
           end
         end
