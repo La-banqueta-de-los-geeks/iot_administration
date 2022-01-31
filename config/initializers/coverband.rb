@@ -1,4 +1,4 @@
-if ENV['RAILS_ENV'] != 'test'
+if Rails.env.development?
   Coverband.configure do |config|
     # config.store = Coverband::Adapters::RedisStore.new(Redis.new(db: 1, host: ENV['REDIS_HOST'], port: ENV['REDIS_PORT'], password: ENV['REDIS_PASSWORD']))
     config.logger = Rails.logger

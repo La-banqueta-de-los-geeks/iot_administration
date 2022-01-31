@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => "/api-docs"
   mount Rswag::Api::Engine => "/api-docs"
   mount Sidekiq::Web => "/admin" # mount Sidekiq::Web in your Rails app
-  mount Coverband::Reporters::Web.new, at: "/coverage" if Rails.env.development?
+  # mount Coverband::Reporters::Web.new, at: '/coverage'
   scope "(:locale)", locale: /es|en/ do
     namespace :v1, :defaults => { :format => "json" } do
       resources :devices, only: %i[create update index]
