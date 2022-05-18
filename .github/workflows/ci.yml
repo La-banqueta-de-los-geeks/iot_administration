@@ -80,7 +80,8 @@ jobs:
           DB_USER: myapp
           DB_PASSWORD: test
         run: |
-          bin/rails db:setup
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
 
       - name: Run tests
         run: bin/rspec
